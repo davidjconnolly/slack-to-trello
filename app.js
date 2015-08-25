@@ -8,7 +8,7 @@ var port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-function postToTrello(listId, command, text, cb) {
+function postToTrello(listId, command, text, userName, cb) {
   if (text == undefined || text == null || text == "") {
     throw new Error('Format is ' + command + ' feature name | description(optional)');
   }
@@ -16,7 +16,7 @@ function postToTrello(listId, command, text, cb) {
   var name_and_desc = text.split('|');
 
 	var card_data = {
-		'name' : name_and_desc.shift(),
+		'name' : '(' + userName + ')' + name_and_desc.shift(),
 		'desc' : name_and_desc.shift()
 	};
 
@@ -27,8 +27,9 @@ app.post('/*', function(req, res, next) {
   var listId = req.params[0];
   var command = req.body.command,
   text = req.body.text;
+  userName = req.body.user_name;
 
-  postToTrello(listId, command, text, function(err, data) {
+  postToTrello(listId, command, text, userName, function(err, data) {
     if (err) throw err;
     console.log(data);
 
