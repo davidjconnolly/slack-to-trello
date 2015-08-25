@@ -16,7 +16,7 @@ function postToTrello(listId, command, text, userName, cb) {
   var name_and_desc = text.split('|');
 
 	var card_data = {
-		'name' : '(' + userName + ')' + name_and_desc.shift(),
+		'name' : '(' + userName + ') ' + name_and_desc.shift(),
 		'desc' : name_and_desc.shift()
 	};
 
