@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 function postToTrello(listId, command, text, cb) {
   if (text == undefined || text == null || text == "") {
-    throw new Error('Format is ' + command + ' name | description(optional)');
+    throw new Error('Format is ' + command + ' feature name | description(optional)');
   }
 
   var name_and_desc = text.split('|');
@@ -35,13 +35,13 @@ app.post('/*', function(req, res, next) {
     var name = data.name;
     var url = data.shortUrl;
 
-    res.status(200).send('Card "' + name + '" created here: <' + url + '>');
+    res.status(200).send('Feature Request: "' + name + '" added: <' + url + '>');
   });
 });
 
 // test route
-app.get('/', function (req, res) { res.status(200).send('SupportKit.io loves Slack and Trello!') });
- 
+app.get('/', function (req, res) { res.status(200).send('It works!') });
+
 // error handler
 app.use(function (err, req, res, next) {
   console.error(err.stack);
